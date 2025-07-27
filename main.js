@@ -1,3 +1,46 @@
+// Mobile Navigation Functionality
+document.addEventListener('DOMContentLoaded', () => {
+  const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  const navLinksItems = document.querySelectorAll('.nav-links a');
+  
+  // Toggle mobile menu
+  if (mobileNavToggle) {
+    mobileNavToggle.addEventListener('click', () => {
+      mobileNavToggle.classList.toggle('active');
+      navLinks.classList.toggle('active');
+      document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+    });
+  }
+  
+  // Close mobile menu when clicking on a link
+  navLinksItems.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNavToggle.classList.remove('active');
+      navLinks.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  });
+  
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!mobileNavToggle.contains(e.target) && !navLinks.contains(e.target)) {
+      mobileNavToggle.classList.remove('active');
+      navLinks.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+  
+  // Close mobile menu on window resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      mobileNavToggle.classList.remove('active');
+      navLinks.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+});
+
 // Typing Effect for Hero Title
 function typeWriter(element, text, speed = 100) {
   let i = 0;
